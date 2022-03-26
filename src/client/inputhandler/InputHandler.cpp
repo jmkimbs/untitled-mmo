@@ -58,12 +58,9 @@ namespace ummo {
 
 			for (int i = 0; i <= 400; i++) {
 				if (IsKeyDown(i)) {
-					std::cout << "Found key down!! -> " << i << std::endl;
 					keysDown.insert(std::make_pair((KeyboardKey) i, true));
 				}
 			}
-
-			std::cout << "Total keys down: " << keysDown.size() << std::endl;
 
 			for (auto handler : this->GetKeydownHandlers()) {
 				handler(keysDown);

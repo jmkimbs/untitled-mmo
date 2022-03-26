@@ -17,7 +17,6 @@ int main(void)
 
 	ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
 
-	// SetCameraMode(*camera, CAMERA_CUSTOM);
 	EnableCursor();
 	while (!WindowShouldClose())
 	{

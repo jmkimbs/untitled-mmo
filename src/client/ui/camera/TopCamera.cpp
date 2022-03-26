@@ -31,6 +31,8 @@ namespace ummo {
 
 			
 			this->LookAtTarget();
+			this->StopPanning();
+
 
 			ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
 			ih->RegisterKeypressHandler(std::bind(&ummo::camera::TopCamera::KeypressUpdate, this, std::placeholders::_1));
@@ -69,11 +71,16 @@ namespace ummo {
 			return this->cameraData;
 		}
 
+		void TopCamera::ResetToggles() {
+			this->StopPanning();
+		}
+
 		void TopCamera::PrintPositionDetails() {
 		
 		}
 
 		void TopCamera::KeypressUpdate(std::map<KeyboardKey, bool> keysPressed) {
+			this->isPanning = false;
 			for (auto const& [keyPressed, isPressed] : keysPressed) {
 				if (isPressed) {
 					switch (keyPressed) {
@@ -95,7 +102,8 @@ namespace ummo {
 		}
 
 		void TopCamera::KeydownUpdate(std::map<KeyboardKey, bool> keysDown) {
-			std::cout << "Keys down : " << keysDown.size() << std::endl;
+			this->StopPanning();
+
 			for (auto const& [keyDown, isDown] : keysDown) {
 				if (isDown) {
 					switch (keyDown) {
@@ -105,17 +113,41 @@ namespace ummo {
 						case KEY_O:
 							this->ZoomOut(0.25f);
 							break;
+						case KEY_J:
+							break;
+						case KEY_L:
+							break;
+						case KEY_LEFT_ALT:
+							this->StartPanning();
+							break;
 					}
 				}
 			}
 		}
 
-		// void TopCamera::KeyupUpdate(std::map<KeyboardKey, bool> keysUp) {
-
-		// }
-
 		void TopCamera::MouseMoveUpdate(Vector2 movementVector) {
 
+			Camera* c = this->GetCamera();
+			CameraData* cd = this->GetCameraData();
+
+			if (this->IsPanning()) {
+				// Camera rotation
+				cd->angle.x += movementVector.x * -CAMERA_FREE_MOUSE_SENSITIVITY;
+				cd->angle.y += movementVector.y * -CAMERA_FREE_MOUSE_SENSITIVITY;
+
+				// Angle clamp
+				if (cd->angle.y > CAMERA_FREE_MIN_CLAMP * DEG2RAD) {
+					cd->angle.y = CAMERA_FREE_MIN_CLAMP * DEG2RAD;
+				} else if (cd->angle.y < CAMERA_FREE_MAX_CLAMP*DEG2RAD) {
+					cd->angle.y = CAMERA_FREE_MAX_CLAMP * DEG2RAD;
+				}
+			}
+
+			// if (this->IsPanning()) {
+			// 	c->target.x += ((movementVector.x * CAMERA_FREE_MOUSE_SENSITIVITY) *cosf(cd->angle.x) + (movementVector.y * -CAMERA_FREE_MOUSE_SENSITIVITY) * sinf(cd->angle.x)*sinf(cd->angle.y)) * (cd->targetDistance / CAMERA_FREE_PANNING_DIVIDER);
+			// 	c->target.y += ((movementVector.y * CAMERA_FREE_MOUSE_SENSITIVITY) *cosf(cd->angle.y)) * (cd->targetDistance / CAMERA_FREE_PANNING_DIVIDER);
+			// 	c->target.z += ((movementVector.x * -CAMERA_FREE_MOUSE_SENSITIVITY) *sinf(cd->angle.x) + (movementVector.y * -CAMERA_FREE_MOUSE_SENSITIVITY) * cosf(cd->angle.x)*sinf(cd->angle.y)) * (cd->targetDistance / CAMERA_FREE_PANNING_DIVIDER);
+			// }
 		}
 
 		void TopCamera::MouseScrollUpdate(float scrollAmount) {
@@ -208,6 +240,18 @@ namespace ummo {
             }
 		}
 
+		void TopCamera::StartPanning() {
+			this->isPanning = true;
+		}
+
+		void TopCamera::StopPanning() {
+			this->isPanning = false;
+		}
+
+		bool TopCamera::IsPanning() {
+			return this->isPanning;
+		}
+
 		void TopCamera::PanLeft() {
 			std::cout << "Panning left" << std::endl;
 		}
@@ -223,6 +267,10 @@ namespace ummo {
 			c->position.x = -sinf(cd->angle.x) * cd->targetDistance * cosf(cd->angle.y) + c->target.x;
 			c->position.y = -sinf(cd->angle.y) * cd->targetDistance + c->target.y;
 			c->position.z = -cosf(cd->angle.x) * cd->targetDistance * cosf(cd->angle.y) + c->target.z;
+
+			std::cout << "Camera position:\n\tx: " << c->position.x << "\n\ty: " << c->position.y << "\n\tz: " << c->position.z << std::endl;
+			std::cout << "Camera angle:\n\tx: " << cd->angle.x << "\n\ty: " << cd->angle.y << std::endl;
+		
 		}
 
 	}

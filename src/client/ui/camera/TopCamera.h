@@ -12,8 +12,8 @@
 #define CAMERA_FREE_MOUSE_SENSITIVITY                   0.01f
 #define CAMERA_FREE_DISTANCE_MIN_CLAMP                  1.0f
 #define CAMERA_FREE_DISTANCE_MAX_CLAMP                  120.0f
-#define CAMERA_FREE_MIN_CLAMP                           85.0f
-#define CAMERA_FREE_MAX_CLAMP                          -85.0f
+#define CAMERA_FREE_MIN_CLAMP                           0.0f
+#define CAMERA_FREE_MAX_CLAMP                          -90.0f
 #define CAMERA_FREE_SMOOTH_ZOOM_SENSITIVITY             0.05f
 #define CAMERA_FREE_PANNING_DIVIDER                     5.1f
 
@@ -41,12 +41,16 @@ namespace ummo {
 				CameraData* cameraData;
 				bool isPanning;
 				CameraData* GetCameraData();
+				void ResetToggles();
 				void Zoom(float);
 				void ZoomIn(float);
 				void ZoomOut(float);
 				void LookDown(float);
 				void LookUp(float);
 				void ClampZoom();
+				void StartPanning();
+				void StopPanning();
+				bool IsPanning();
 				void PanLeft();
 				void PanRight();
 				void LookAtTarget();
