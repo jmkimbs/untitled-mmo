@@ -4,7 +4,6 @@
 
 #include "Game.h"
 #include "src/client/ui/camera/TopCamera.h"
-#include "src/client/ui/controls/Controls.h"
 #include "src/client/inputhandler/InputHandler.h"
 
 
@@ -17,9 +16,6 @@ int main(void)
 	Camera* camera = cam->GetCamera();
 
 	ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
-
-	ummo::client::controls::Controller* control = new ummo::client::controls::Controller();
-	control->InitializeCameraControls(*cam);
 
 	// SetCameraMode(*camera, CAMERA_CUSTOM);
 	EnableCursor();

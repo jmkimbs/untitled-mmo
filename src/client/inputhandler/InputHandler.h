@@ -12,11 +12,15 @@ namespace ummo {
 		class InputHandler {
 			private:
 				std::vector<std::function<void(std::map<KeyboardKey, bool>)>> keypressHandlers;
+				std::vector<std::function<void(std::map<KeyboardKey, bool>)>> keydownHandlers;
 				std::vector<std::function<void(float)>> mouseScrollHandlers;
 				std::vector<std::function<void(Vector2)>> mouseMoveHandlers;
 
 				std::vector<std::function<void(std::map<KeyboardKey, bool>)>> GetKeypressHandlers();
 				void ActionKeypressHandlers();
+
+				std::vector<std::function<void(std::map<KeyboardKey, bool>)>> GetKeydownHandlers();
+				void ActionKeydownHandlers();
 
 				std::vector<std::function<void(float)>> GetMouseScrollHandlers();
 				void ActionMouseScrollHandlers();
@@ -38,6 +42,7 @@ namespace ummo {
 				void HandleInput();
 
 				void RegisterKeypressHandler(std::function<void(std::map<KeyboardKey, bool>)>);
+				void RegisterKeydownHandler(std::function<void(std::map<KeyboardKey, bool>)>);
 				void RegisterMouseScrollHandler(std::function<void(float)>);
 				void RegisterMouseMoveHandler(std::function<void(Vector2)>);
 				~InputHandler() = default;

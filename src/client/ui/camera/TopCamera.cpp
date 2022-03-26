@@ -5,6 +5,7 @@
 #include "raylib.h"
 
 #include "TopCamera.h"
+#include "src/client/inputhandler/InputHandler.h"
 
 namespace ummo {
 	namespace camera {
@@ -30,6 +31,12 @@ namespace ummo {
 
 			
 			this->LookAtTarget();
+
+			ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
+			ih->RegisterKeypressHandler(std::bind(&ummo::camera::TopCamera::KeypressUpdate, this, std::placeholders::_1));
+			ih->RegisterKeydownHandler(std::bind(&ummo::camera::TopCamera::KeydownUpdate, this, std::placeholders::_1));
+			ih->RegisterMouseScrollHandler(std::bind(&ummo::camera::TopCamera::MouseScrollUpdate, this, std::placeholders::_1));
+			ih->RegisterMouseMoveHandler(std::bind(&ummo::camera::TopCamera::MouseMoveUpdate, this, std::placeholders::_1));
 		}
 		
 		void TopCamera::LookAtTarget() {
@@ -70,12 +77,12 @@ namespace ummo {
 			for (auto const& [keyPressed, isPressed] : keysPressed) {
 				if (isPressed) {
 					switch (keyPressed) {
-						case KEY_I:
-							this->ZoomIn(1.0f);
-							break;
-						case KEY_O:
-							this->ZoomOut(1.0f);
-							break;
+						// case KEY_I:
+						// 	this->ZoomIn(1.0f);
+						// 	break;
+						// case KEY_O:
+						// 	this->ZoomOut(1.0f);
+						// 	break;
 						case KEY_J:
 							this->PanLeft();
 							break;
@@ -87,8 +94,28 @@ namespace ummo {
 			}
 		}
 
+		void TopCamera::KeydownUpdate(std::map<KeyboardKey, bool> keysDown) {
+			std::cout << "Keys down : " << keysDown.size() << std::endl;
+			for (auto const& [keyDown, isDown] : keysDown) {
+				if (isDown) {
+					switch (keyDown) {
+						case KEY_I:
+							this->ZoomIn(0.25f);
+							break;
+						case KEY_O:
+							this->ZoomOut(0.25f);
+							break;
+					}
+				}
+			}
+		}
+
+		// void TopCamera::KeyupUpdate(std::map<KeyboardKey, bool> keysUp) {
+
+		// }
+
 		void TopCamera::MouseMoveUpdate(Vector2 movementVector) {
-			std::cout << "Movement=> x: " << movementVector.x << " ; y: " << movementVector.y << std::endl;
+
 		}
 
 		void TopCamera::MouseScrollUpdate(float scrollAmount) {

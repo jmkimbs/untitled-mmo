@@ -55,6 +55,7 @@ namespace ummo {
 				TopCamera();
 				Camera3D* GetCamera();
 				void KeypressUpdate(std::map<KeyboardKey, bool>);
+				void KeydownUpdate(std::map<KeyboardKey, bool>);
 				void MouseMoveUpdate(Vector2);
 				void MouseScrollUpdate(float scrollAmount);
 

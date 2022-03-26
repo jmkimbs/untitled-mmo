@@ -16,6 +16,7 @@ namespace ummo {
 
 		void InputHandler::HandleInput() {
 			this->ActionKeypressHandlers();
+			this->ActionKeydownHandlers();
 			this->ActionMouseScrollHandlers();
 			this->ActionMouseMoveHandlers();
 		}
@@ -41,6 +42,31 @@ namespace ummo {
 
 			for (auto handler : this->GetKeypressHandlers()) {
 				handler(keysPressed);
+			}
+		}
+
+		void InputHandler::RegisterKeydownHandler(std::function<void(std::map<KeyboardKey, bool>)> handler) {
+			this->keydownHandlers.push_back(handler);
+		}
+
+		std::vector<std::function<void(std::map<KeyboardKey, bool>)>> InputHandler::GetKeydownHandlers() {
+			return this->keydownHandlers;
+		}
+
+		void InputHandler::ActionKeydownHandlers() {
+			std::map<KeyboardKey, bool> keysDown;
+
+			for (int i = 0; i <= 400; i++) {
+				if (IsKeyDown(i)) {
+					std::cout << "Found key down!! -> " << i << std::endl;
+					keysDown.insert(std::make_pair((KeyboardKey) i, true));
+				}
+			}
+
+			std::cout << "Total keys down: " << keysDown.size() << std::endl;
+
+			for (auto handler : this->GetKeydownHandlers()) {
+				handler(keysDown);
 			}
 		}
 
