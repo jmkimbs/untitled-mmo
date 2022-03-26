@@ -1,8 +1,11 @@
 #include <iostream>
+
 #include "raylib.h"
 
 #include "Game.h"
-#include "camera/TopCamera.h"
+#include "src/client/ui/camera/TopCamera.h"
+#include "src/client/ui/controls/Controls.h"
+#include "src/client/inputhandler/InputHandler.h"
 
 
 int main(void)
@@ -10,20 +13,25 @@ int main(void)
 	InitWindow(1280, 720, "Untitled MMO");
 	SetTargetFPS(60);
 
-	ummo::camera::TopCamera *cam = new ummo::camera::TopCamera();
-	Camera3D camera = cam->GetCamera();
+	ummo::camera::TopCamera* cam = new ummo::camera::TopCamera();
+	Camera camera = cam->GetCamera();
 
-	std::cout << "x " << (cam->GetCamera()).position.x << " y " << (cam->GetCamera()).position.y << " z " << (cam->GetCamera()).position.z << std::endl;
+	ummo::input::InputHandler& ih = ummo::input::InputHandler::GetInstance();
 
-	SetCameraMode(camera, CAMERA_FREE);
+	ummo::client::controls::Controller* control = new ummo::client::controls::Controller();
+	control->InitializeCameraControls(*cam);
+	
+	SetCameraMode(camera, CAMERA_CUSTOM);
 
 	while (!WindowShouldClose())
 	{
 
+		ih.HandleInput();
+
+		cam->Update();
+
 		BeginDrawing();
 			ClearBackground(RAYWHITE);
-
-			UpdateCamera(&camera);
 
 			BeginMode3D(camera);
 				DrawCube((Vector3) { 0.0f, 0.0f, 0.0f }, 2.0f, 2.0f, 2.0f, RED);
