@@ -41,12 +41,15 @@ namespace ummo {
 				CameraData* cameraData;
 				bool isPanning;
 				CameraData* GetCameraData();
-				void ZoomIn();
-				void ZoomOut();
+				void Zoom(float);
+				void ZoomIn(float);
+				void ZoomOut(float);
+				void LookDown(float);
+				void LookUp(float);
 				void ClampZoom();
 				void PanLeft();
 				void PanRight();
-				void SetPos(Camera*, float, float, float);
+				void LookAtTarget();
 
 			public:
 				TopCamera();

@@ -14,7 +14,7 @@ namespace ummo {
 				ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
 				ih->RegisterKeypressHandler(std::bind(&ummo::camera::TopCamera::KeypressUpdate, camera, std::placeholders::_1));
 				ih->RegisterMouseScrollHandler(std::bind(&ummo::camera::TopCamera::MouseScrollUpdate, camera, std::placeholders::_1));
-
+				ih->RegisterMouseMoveHandler(std::bind(&ummo::camera::TopCamera::MouseMoveUpdate, camera, std::placeholders::_1));
 			}
 
 		}

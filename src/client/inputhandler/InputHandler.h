@@ -25,7 +25,11 @@ namespace ummo {
 				void ActionMouseMoveHandlers();
 
 
-				Vector2 prevMousePos;
+				Vector2 previousMousePosition;
+				Vector2 GetPreviousMousePosition();
+				void SetPreviousMousePosition(Vector2);
+
+
 				InputHandler() = default;
 
 			public:

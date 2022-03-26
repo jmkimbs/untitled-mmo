@@ -68,18 +68,26 @@ namespace ummo {
 			return this->mouseMoveHandlers;
 		}
 
+		Vector2 InputHandler::GetPreviousMousePosition() {
+			return this->previousMousePosition;
+		}
+
+		void InputHandler::SetPreviousMousePosition(Vector2 mousePosition) {
+			this->previousMousePosition = mousePosition;
+		}
+
 		void InputHandler::ActionMouseMoveHandlers() {
-			Vector2 mousePosChange = { 0.0f, 0.0f };
-			Vector2 mousePos = GetMousePosition();
-			Vector2 prevMousePos = this->prevMousePos;
+			Vector2 mousePositionDelta = { 0.0f, 0.0f };
+			Vector2 mousePosition = GetMousePosition();
+			Vector2 previousMousePosition = this->GetPreviousMousePosition();
 
-			mousePosChange.x = mousePos.x - prevMousePos.x;
-			mousePosChange.y = mousePos.y - prevMousePos.y;
+			mousePositionDelta.x = mousePosition.x - previousMousePosition.x;
+			mousePositionDelta.y = mousePosition.y - previousMousePosition.y;
 
-			prevMousePos = mousePos;
+			this->SetPreviousMousePosition(mousePosition);
 
 			for (auto handler : this->GetMouseMoveHandlers()) {
-				handler(mousePosChange);
+				handler(mousePositionDelta);
 			}
 		}
 

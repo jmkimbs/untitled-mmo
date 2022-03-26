@@ -20,13 +20,12 @@ int main(void)
 
 	ummo::client::controls::Controller* control = new ummo::client::controls::Controller();
 	control->InitializeCameraControls(*cam);
-	
-	SetCameraMode(*camera, CAMERA_CUSTOM);
+
+	// SetCameraMode(*camera, CAMERA_CUSTOM);
+	EnableCursor();
 	while (!WindowShouldClose())
 	{
-
 		ih->HandleInput();
-
 		cam->Update();
 
 		BeginDrawing();
