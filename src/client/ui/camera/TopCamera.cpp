@@ -10,17 +10,19 @@ namespace ummo {
 
 
 		TopCamera::TopCamera() {
-			Camera3D camera = { 0 };
-			camera.position = (Vector3){ 10.0f, 10.0f, 10.0f };
-			camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
-			camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
-			camera.fovy = 90.0f;
-			camera.projection = CAMERA_PERSPECTIVE;
-
-			this->camera = camera;
+			this->camera = new Camera3D;
+			this->camera->position = (Vector3){ 10.0f, 10.0f, 10.0f };
+			this->camera->target = (Vector3){ 0.0f, 0.0f, 0.0f };
+			this->camera->up = (Vector3){ 0.0f, 1.0f, 0.0f };
+			this->camera->fovy = 90.0f;
+			this->camera->projection = CAMERA_PERSPECTIVE;
+		}
+		
+		TopCamera::~TopCamera() {
+			// delete this->camera;
 		}
 
-		Camera3D TopCamera::GetCamera() {
+		Camera3D* TopCamera::GetCamera() {
 			return this->camera;
 		}
 
@@ -66,7 +68,7 @@ namespace ummo {
 			std::cout << "Zooming in" << std::endl;
 			CameraData *cd = &ummo::camera::CAMERA;
 			
-			float zoomSpeed = 10.0;
+			float zoomSpeed = 1.0;
 			cd->targetDistance -= zoomSpeed;
 			this->ClampZoom();
 		}
@@ -75,20 +77,20 @@ namespace ummo {
 			std::cout << "Zooming out" << std::endl;
 			CameraData *cd = &ummo::camera::CAMERA;
 
-			float zoomSpeed = 10.0;
+			float zoomSpeed = 1.0;
 			cd->targetDistance += zoomSpeed;
 			this->ClampZoom();
 		}
 
 		void TopCamera::ClampZoom() {
-			CameraData cd = ummo::camera::CAMERA;
+			CameraData* cd = &ummo::camera::CAMERA;
 
-			if (cd.targetDistance > CAMERA_FREE_DISTANCE_MAX_CLAMP) {
-				cd.targetDistance = CAMERA_FREE_DISTANCE_MAX_CLAMP;
+			if (cd->targetDistance > CAMERA_FREE_DISTANCE_MAX_CLAMP) {
+				cd->targetDistance = CAMERA_FREE_DISTANCE_MAX_CLAMP;
 			}
 
-			if (cd.targetDistance < CAMERA_FREE_DISTANCE_MIN_CLAMP) {
-				cd.targetDistance = CAMERA_FREE_DISTANCE_MIN_CLAMP;
+			if (cd->targetDistance < CAMERA_FREE_DISTANCE_MIN_CLAMP) {
+				cd->targetDistance = CAMERA_FREE_DISTANCE_MIN_CLAMP;
 			}
 		}
 
@@ -100,40 +102,13 @@ namespace ummo {
 			std::cout << "Panning right" << std::endl;
 		}
 
-		void TopCamera::SetPos(Camera *camera, float posx, float posy, float posz) {
-			camera->position.x = posx;
-			camera->position.y = posy;
-			camera->position.z = posz;
-		}
-
 		void TopCamera::Update() {
-			Camera* c = &(this->camera);
-			Vector3* cpos =&(this->camera.position);
+			Camera* c = this->camera;
 			CameraData* cd = &ummo::camera::CAMERA;
 
-			float posx = -sinf(cd->angle.x) * cd->targetDistance * cosf(cd->angle.y) + c->target.x;
 			c->position.x = -sinf(cd->angle.x) * cd->targetDistance * cosf(cd->angle.y) + c->target.x;
-			float posy = -sinf(cd->angle.y) * cd->targetDistance + this->camera.target.y;
-			c->position.y = -sinf(cd->angle.y) * cd->targetDistance + this->camera.target.y;
-			float posz = -cosf(cd->angle.x) * cd->targetDistance * cosf(cd->angle.y) + c->target.z;
+			c->position.y = -sinf(cd->angle.y) * cd->targetDistance + c->target.y;
 			c->position.z = -cosf(cd->angle.x) * cd->targetDistance * cosf(cd->angle.y) + c->target.z;
-
-			std::cout << "-------------------------------------------------------------------------" << std::endl;
-			std::cout << "posx: " << posx << "; posy: " << posy << "; posz: " << posz << std::endl;
-			std::cout << "c pos=> x: " << c->position.x << "; y: " << c->position.y << "; z: " << c->position.y << std::endl;
-
-			//std::cout << "Target distance: " << cd.targetDistance << std::endl;
-			std::cout << "camera pos=> x: " << this->camera.position.x << "; y: " << this->camera.position.y << "; z: " << this->camera.position.y << std::endl;
-
-			cpos->x = posx;
-			cpos->y = posy;
-			cpos->z = posz;
-			std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
-			std::cout << "c pos=> x: " << c->position.x << "; y: " << c->position.y << "; z: " << c->position.y << std::endl;
-
-			//std::cout << "Target distance: " << cd.targetDistance << std::endl;
-			std::cout << "camera pos=> x: " << this->camera.position.x << "; y: " << this->camera.position.y << "; z: " << this->camera.position.y << std::endl;
-			std::cout << "-------------------------------------------------------------------------" << std::endl;
 		}
 
 	}

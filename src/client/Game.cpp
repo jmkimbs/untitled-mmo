@@ -14,15 +14,14 @@ int main(void)
 	SetTargetFPS(60);
 
 	ummo::camera::TopCamera* cam = new ummo::camera::TopCamera();
-	Camera camera = cam->GetCamera();
+	Camera* camera = cam->GetCamera();
 
 	ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
 
 	ummo::client::controls::Controller* control = new ummo::client::controls::Controller();
 	control->InitializeCameraControls(*cam);
 	
-	SetCameraMode(camera, CAMERA_CUSTOM);
-
+	SetCameraMode(*camera, CAMERA_CUSTOM);
 	while (!WindowShouldClose())
 	{
 
@@ -33,7 +32,7 @@ int main(void)
 		BeginDrawing();
 			ClearBackground(RAYWHITE);
 
-			BeginMode3D(camera);
+			BeginMode3D(*camera);
 				DrawCube((Vector3) { 0.0f, 0.0f, 0.0f }, 2.0f, 2.0f, 2.0f, RED);
 				DrawCubeWires((Vector3) { 0.0f, 0.0f, 0.0f }, 2.0f, 2.0f, 2.0f, MAROON);
 				DrawGrid(10, 1.0f);

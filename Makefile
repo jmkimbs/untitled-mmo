@@ -8,7 +8,7 @@ all: bin/client/Game
 
 bin/client/Game: build/client/Game.o build/client/ui/camera/TopCamera.o build/client/ui/controls/Controls.o build/client/inputhandler/InputHandler.o $(LIB_PATHS) | bin copyclientlibs
 	@echo "-- Building the game binary... --"
-	g++ -o bin/client/Game build/client/Game.o build/client/ui/camera/TopCamera.o build/client/ui/controls/Controls.o build/client/inputhandler/InputHandler.o -L src/lib/raylib-4.0.0_linux_amd64/lib -lraylib -L. -Wl,-rpath,"\$$ORIGIN/lib"
+	g++ -std=c++2a -o bin/client/Game build/client/Game.o build/client/ui/camera/TopCamera.o build/client/ui/controls/Controls.o build/client/inputhandler/InputHandler.o -L src/lib/raylib-4.0.0_linux_amd64/lib -lraylib -L. -Wl,-rpath,"\$$ORIGIN/lib"
 	@echo ""
 
 bin:
@@ -29,19 +29,19 @@ copyserverlibs:
 
 build/client/Game.o: src/client/Game.cpp src/client/Game.h | build
 	@echo "-- Building the client objects... --"
-	g++ $(INCLUDE:%=-I %) -c -o build/client/Game.o src/client/Game.cpp
+	g++ -std=c++2a $(INCLUDE:%=-I %) -c -o build/client/Game.o src/client/Game.cpp
 
 build/client/ui/camera/TopCamera.o: src/client/ui/camera/TopCamera.cpp src/client/ui/camera/TopCamera.h | build
 	@echo "-- Building the camera files... --"
-	g++ $(INCLUDE:%=-I %) -c -o build/client/ui/camera/TopCamera.o src/client/ui/camera/TopCamera.cpp
+	g++ -std=c++2a $(INCLUDE:%=-I %) -c -o build/client/ui/camera/TopCamera.o src/client/ui/camera/TopCamera.cpp
 
 build/client/ui/controls/Controls.o: src/client/ui/controls/Controls.cpp src/client/ui/controls/Controls.h | build
 	@echo "-- Building the control files... --"
-	g++ $(INCLUDE:%=-I %) -c -o build/client/ui/controls/Controls.o src/client/ui/controls/Controls.cpp
+	g++ -std=c++2a $(INCLUDE:%=-I %) -c -o build/client/ui/controls/Controls.o src/client/ui/controls/Controls.cpp
 
 build/client/inputhandler/InputHandler.o: src/client/inputhandler/InputHandler.cpp src/client/inputhandler/InputHandler.h | build
 	@echo "-- Building the input handler files... --"
-	g++ $(INCLUDE:%=-I %) -c -o build/client/inputhandler/InputHandler.o src/client/inputhandler/InputHandler.cpp
+	g++ -std=c++2a $(INCLUDE:%=-I %) -c -o build/client/inputhandler/InputHandler.o src/client/inputhandler/InputHandler.cpp
 
 build:
 	mkdir build

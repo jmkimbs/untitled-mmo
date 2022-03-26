@@ -10,7 +10,7 @@
 
 // FREE_CAMERA
 #define CAMERA_FREE_MOUSE_SENSITIVITY                   0.01f
-#define CAMERA_FREE_DISTANCE_MIN_CLAMP                  0.3f
+#define CAMERA_FREE_DISTANCE_MIN_CLAMP                  1.0f
 #define CAMERA_FREE_DISTANCE_MAX_CLAMP                  120.0f
 #define CAMERA_FREE_MIN_CLAMP                           85.0f
 #define CAMERA_FREE_MAX_CLAMP                          -85.0f
@@ -48,7 +48,7 @@ namespace ummo {
 		class TopCamera {
 			private:
 				int id;
-				Camera3D camera;
+				Camera3D* camera;
 				bool isPanning;
 				void ZoomIn();
 				void ZoomOut();
@@ -59,7 +59,7 @@ namespace ummo {
 
 			public:
 				TopCamera();
-				Camera3D GetCamera();
+				Camera3D* GetCamera();
 				void KeypressUpdate(std::map<KeyboardKey, bool>);
 				void MouseMoveUpdate(Vector2);
 				void MouseScrollUpdate(float scrollAmount);
@@ -67,7 +67,7 @@ namespace ummo {
 				void Update();
 				void PrintPositionDetails();
 
-				~TopCamera() = default;
+				~TopCamera();
 		};
 
 	}
