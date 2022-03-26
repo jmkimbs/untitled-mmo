@@ -16,6 +16,16 @@ namespace ummo {
 			this->camera->up = (Vector3){ 0.0f, 1.0f, 0.0f };
 			this->camera->fovy = 90.0f;
 			this->camera->projection = CAMERA_PERSPECTIVE;
+
+			this->cameraData = new CameraData;
+			this->cameraData->targetDistance = 0;
+			this->cameraData->playerEyesPosition = 1.85f;
+			this->cameraData->angle = { 0 };
+			this->cameraData->previousMousePosition = { 0 };
+			// this->cameraData->moveControl = { 'W', 'S', 'D', 'A', 'E', 'Q' };
+			this->cameraData->smoothZoomControl = KEY_LEFT_CONTROL;
+			this->cameraData->altControl = KEY_LEFT_ALT;
+			this->cameraData->panControl = MOUSE_BUTTON_MIDDLE;
 		}
 		
 		TopCamera::~TopCamera() {
@@ -24,6 +34,10 @@ namespace ummo {
 
 		Camera3D* TopCamera::GetCamera() {
 			return this->camera;
+		}
+
+		CameraData* TopCamera::GetCameraData() {
+			return this->cameraData;
 		}
 
 		void TopCamera::PrintPositionDetails() {
@@ -66,7 +80,7 @@ namespace ummo {
 
 		void TopCamera::ZoomIn() {
 			std::cout << "Zooming in" << std::endl;
-			CameraData *cd = &ummo::camera::CAMERA;
+			CameraData *cd = this->GetCameraData();
 			
 			float zoomSpeed = 1.0;
 			cd->targetDistance -= zoomSpeed;
@@ -75,7 +89,7 @@ namespace ummo {
 
 		void TopCamera::ZoomOut() {
 			std::cout << "Zooming out" << std::endl;
-			CameraData *cd = &ummo::camera::CAMERA;
+			CameraData *cd = this->GetCameraData();
 
 			float zoomSpeed = 1.0;
 			cd->targetDistance += zoomSpeed;
@@ -83,7 +97,7 @@ namespace ummo {
 		}
 
 		void TopCamera::ClampZoom() {
-			CameraData* cd = &ummo::camera::CAMERA;
+			CameraData *cd = this->GetCameraData();
 
 			if (cd->targetDistance > CAMERA_FREE_DISTANCE_MAX_CLAMP) {
 				cd->targetDistance = CAMERA_FREE_DISTANCE_MAX_CLAMP;
@@ -103,8 +117,8 @@ namespace ummo {
 		}
 
 		void TopCamera::Update() {
-			Camera* c = this->camera;
-			CameraData* cd = &ummo::camera::CAMERA;
+			Camera* c = this->GetCamera();
+			CameraData* cd = this->GetCameraData();
 
 			c->position.x = -sinf(cd->angle.x) * cd->targetDistance * cosf(cd->angle.y) + c->target.x;
 			c->position.y = -sinf(cd->angle.y) * cd->targetDistance + c->target.y;

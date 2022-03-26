@@ -34,22 +34,13 @@ namespace ummo {
 
 		} CameraData;
 
-		static CameraData CAMERA = {
-			.targetDistance = 0,
-			.playerEyesPosition = 1.85f,
-			.angle = { 0 },
-			.previousMousePosition = { 0 },
-			.moveControl = { 'W', 'S', 'D', 'A', 'E', 'Q' },
-			.smoothZoomControl = KEY_LEFT_CONTROL,
-			.altControl = KEY_LEFT_ALT,
-			.panControl = MOUSE_BUTTON_MIDDLE
-		};
-
 		class TopCamera {
 			private:
 				int id;
 				Camera3D* camera;
+				CameraData* cameraData;
 				bool isPanning;
+				CameraData* GetCameraData();
 				void ZoomIn();
 				void ZoomOut();
 				void ClampZoom();
