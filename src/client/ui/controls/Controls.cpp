@@ -1,4 +1,5 @@
 #include "Controls.h"
+#include <iostream>
 
 #include "src/client/inputhandler/InputHandler.h"
 #include "src/client/ui/camera/TopCamera.h"

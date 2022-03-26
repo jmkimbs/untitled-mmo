@@ -16,7 +16,7 @@ int main(void)
 	ummo::camera::TopCamera* cam = new ummo::camera::TopCamera();
 	Camera camera = cam->GetCamera();
 
-	ummo::input::InputHandler& ih = ummo::input::InputHandler::GetInstance();
+	ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
 
 	ummo::client::controls::Controller* control = new ummo::client::controls::Controller();
 	control->InitializeCameraControls(*cam);
@@ -26,7 +26,7 @@ int main(void)
 	while (!WindowShouldClose())
 	{
 
-		ih.HandleInput();
+		ih->HandleInput();
 
 		cam->Update();
 

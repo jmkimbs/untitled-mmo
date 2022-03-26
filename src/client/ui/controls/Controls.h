@@ -9,11 +9,11 @@ namespace ummo {
 
 			class Controller {
 				private:
-					// void InitializeMovementControls();
-					~Controller() = default;
+				
 				public:
 					Controller() = default;
 					static void InitializeCameraControls(ummo::camera::TopCamera);
+					~Controller() = default;
 
 			};
 		}

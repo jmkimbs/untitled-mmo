@@ -27,16 +27,16 @@ namespace ummo {
 
 				Vector2 prevMousePos;
 				InputHandler() = default;
-				~InputHandler() = default;
 
 			public:
-				static InputHandler& GetInstance();
+				static InputHandler* GetInstance();
 				
 				void HandleInput();
 
 				void RegisterKeypressHandler(std::function<void(std::map<KeyboardKey, bool>)>);
 				void RegisterMouseScrollHandler(std::function<void(float)>);
 				void RegisterMouseMoveHandler(std::function<void(Vector2)>);
+				~InputHandler() = default;
 		
 		};
 

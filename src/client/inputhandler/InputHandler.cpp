@@ -1,6 +1,7 @@
 #include <functional>
 #include <map>
 #include <vector>
+#include <iostream>
 #include "raylib.h"
 
 #include "InputHandler.h"
@@ -8,9 +9,9 @@
 namespace ummo {
 	namespace input {
 
-		InputHandler &InputHandler::GetInstance() {
+		InputHandler* InputHandler::GetInstance() {
 			static InputHandler* instance = new InputHandler();
-			return *instance;
+			return instance;
 		}
 
 		void InputHandler::HandleInput() {

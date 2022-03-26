@@ -60,18 +60,6 @@ namespace ummo {
 			else if (scrollAmount < 0.0f) {
 				ZoomOut();
 			}
-
-			Camera3D* c = &(this->camera);
-			CameraData cd = ummo::camera::CAMERA;
-			float dx = scrollAmount*(c->target.x - c->position.x)*CAMERA_MOUSE_SCROLL_SENSITIVITY/cd.targetDistance;
-			c->target.x += dx;
-			float dy = scrollAmount*(c->target.y - c->position.y)*CAMERA_MOUSE_SCROLL_SENSITIVITY/cd.targetDistance;
-			c->target.y += dy;
-			float dz = scrollAmount*(c->target.z - c->position.z)*CAMERA_MOUSE_SCROLL_SENSITIVITY/cd.targetDistance;
-			c->target.z += dz;
-
-			std::cout << "dx: " << dx << "; dy: " << dy << "; dz: " << dz << "; tarx: " << c->target.x << "; tary: " << c->target.y << "; tarz: " << c->target.z << std::endl;
-			// this->ZoomIn(scrollAmount);
 		}
 
 		void TopCamera::ZoomIn() {
