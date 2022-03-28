@@ -21,13 +21,7 @@ namespace ummo {
 
 			this->cameraData = new CameraData;
 			this->cameraData->targetDistance = 0;
-			this->cameraData->playerEyesPosition = 1.85f;
 			this->cameraData->angle = { 0 };
-			this->cameraData->previousMousePosition = { 0 };
-			// this->cameraData->moveControl = { 'W', 'S', 'D', 'A', 'E', 'Q' };
-			this->cameraData->smoothZoomControl = KEY_LEFT_CONTROL;
-			this->cameraData->altControl = KEY_LEFT_ALT;
-			this->cameraData->panControl = MOUSE_BUTTON_MIDDLE;
 
 			
 			this->LookAtTarget();
@@ -268,8 +262,8 @@ namespace ummo {
 			c->position.y = -sinf(cd->angle.y) * cd->targetDistance + c->target.y;
 			c->position.z = -cosf(cd->angle.x) * cd->targetDistance * cosf(cd->angle.y) + c->target.z;
 
-			std::cout << "Camera position:\n\tx: " << c->position.x << "\n\ty: " << c->position.y << "\n\tz: " << c->position.z << std::endl;
-			std::cout << "Camera angle:\n\tx: " << cd->angle.x << "\n\ty: " << cd->angle.y << std::endl;
+			// std::cout << "Camera position:\n\tx: " << c->position.x << "\n\ty: " << c->position.y << "\n\tz: " << c->position.z << std::endl;
+			// std::cout << "Camera angle:\n\tx: " << cd->angle.x << "\n\ty: " << cd->angle.y << std::endl;
 		
 		}
 

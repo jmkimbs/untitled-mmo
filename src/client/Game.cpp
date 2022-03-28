@@ -18,6 +18,9 @@ int main(void)
 	ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
 
 	EnableCursor();
+	Model lance = LoadModel("./src/client/resources/models/Lance.glb");
+	std::cout << "Get working directory" << std::endl;
+	std::cout << GetWorkingDirectory() << std::endl;
 	while (!WindowShouldClose())
 	{
 		ih->HandleInput();
@@ -27,8 +30,13 @@ int main(void)
 			ClearBackground(RAYWHITE);
 
 			BeginMode3D(*camera);
-				DrawCube((Vector3) { 0.0f, 0.0f, 0.0f }, 2.0f, 2.0f, 2.0f, RED);
-				DrawCubeWires((Vector3) { 0.0f, 0.0f, 0.0f }, 2.0f, 2.0f, 2.0f, MAROON);
+				// DrawModelEx(lance, (Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 1.0f, 0.0f, 0.0f }, 0.0f, (Vector3) { 2.0f, 2.0f, 2.0f }, WHITE);
+				DrawModel(lance, (Vector3) { 0.0f, 0.0f, 0.0f }, 1, WHITE);
+
+				DrawLine3D((Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 100.0f, 0.0f, 0.0f }, RED);
+				DrawLine3D((Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 0.0f, 100.0f, 0.0f }, GREEN);
+				DrawLine3D((Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 0.0f, 0.0f, 100.0f }, BLUE);
+				
 				DrawGrid(10, 1.0f);
 			EndMode3D();
 
@@ -37,6 +45,7 @@ int main(void)
 		EndDrawing();
 	}
 
+	UnloadModel(lance);
 	CloseWindow();
 
 	return 0;

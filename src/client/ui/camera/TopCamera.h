@@ -13,7 +13,7 @@
 #define CAMERA_FREE_DISTANCE_MIN_CLAMP                  1.0f
 #define CAMERA_FREE_DISTANCE_MAX_CLAMP                  120.0f
 #define CAMERA_FREE_MIN_CLAMP                           0.0f
-#define CAMERA_FREE_MAX_CLAMP                          -90.0f
+#define CAMERA_FREE_MAX_CLAMP                          -89.0f
 #define CAMERA_FREE_SMOOTH_ZOOM_SENSITIVITY             0.05f
 #define CAMERA_FREE_PANNING_DIVIDER                     5.1f
 
