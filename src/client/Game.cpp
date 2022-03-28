@@ -27,7 +27,7 @@ int main(void)
 
 	Vector3& lancePos = lance->GetLivePosition();
 	cam->SetLiveTarget(lancePos);
-	
+
 	while (!WindowShouldClose())
 	{
 		lance->Move((Vector3) { 0.0f, 0.0f, -1.0f });

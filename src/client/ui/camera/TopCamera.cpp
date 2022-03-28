@@ -27,9 +27,11 @@ namespace ummo {
 			this->LookAtTarget();
 			this->StopPanning();
 
-			Vector3 defaultTarget = (Vector3) { 0, 0, 0};
-			this->liveTarget = &defaultTarget;
-
+			Vector3* defaultTarget = new Vector3;
+			defaultTarget->x = 0.0f;
+			defaultTarget->y = 0.0f;
+			defaultTarget->z = 0.0f;
+			this->liveTarget = defaultTarget;
 
 			ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
 			ih->RegisterKeypressHandler(std::bind(&ummo::camera::TopCamera::KeypressUpdate, this, std::placeholders::_1));
