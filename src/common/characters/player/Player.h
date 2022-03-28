@@ -11,7 +11,13 @@ namespace ummo {
 			class Player : public Character {
 
 				private:
+					void InitializeModel(int);
+					void InitializeAttributes(int);
+
+
 				public:
+					Player(int);
+					~Player();
 
 
 			};

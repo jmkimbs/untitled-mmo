@@ -15,13 +15,25 @@ namespace ummo {
 			class Character {
 
 				private:
+					Model model;
+					Vector3 position;
+					float rotation;
+
+					// virtual void InitializeModel(int) = 0;
+					// virtual void InitializeAttributes(int) = 0;
+
 				public:
-					Character(int id, CharacterType type);
-					~Character() = default;
+					Character(int);
+					~Character();
 					Model GetModel();
+					void SetModel(Model);
 					Vector3 GetPosition();
+					Vector3& GetLivePosition();
 					float GetRotation();
-					void MoveTo(Vector3 newPosition);
+					void Move(Vector3);
+					void SetPosition(Vector3);
+					void Rotate(float);
+					void SetRotation(float);
 
 			};
 		}

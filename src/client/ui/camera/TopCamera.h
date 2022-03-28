@@ -4,6 +4,8 @@
 
 #include "raylib.h"
 
+#include "src/common/characters/Character.h"
+
 // Camera mouse movement sensitivity
 #define CAMERA_MOUSE_MOVE_SENSITIVITY                   0.003f
 #define CAMERA_MOUSE_SCROLL_SENSITIVITY                 1.5f
@@ -40,6 +42,8 @@ namespace ummo {
 				Camera3D* camera;
 				CameraData* cameraData;
 				bool isPanning;
+				Vector3* liveTarget;
+
 				CameraData* GetCameraData();
 				void ResetToggles();
 				void Zoom(float);
@@ -63,8 +67,12 @@ namespace ummo {
 				void MouseMoveUpdate(Vector2);
 				void MouseScrollUpdate(float scrollAmount);
 
+				void SetTargetCharacter(ummo::common::characters::Character* character);
+				ummo::common::characters::Character* GetTargetCharacter();
+
 				void Update();
 				void PrintPositionDetails();
+				void SetLiveTarget(Vector3&);
 
 				~TopCamera();
 		};

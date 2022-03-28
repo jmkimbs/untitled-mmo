@@ -27,6 +27,9 @@ namespace ummo {
 			this->LookAtTarget();
 			this->StopPanning();
 
+			Vector3 defaultTarget = (Vector3) { 0, 0, 0};
+			this->liveTarget = &defaultTarget;
+
 
 			ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
 			ih->RegisterKeypressHandler(std::bind(&ummo::camera::TopCamera::KeypressUpdate, this, std::placeholders::_1));
@@ -154,16 +157,12 @@ namespace ummo {
 		}
 
 		void TopCamera::ZoomIn(float amount) {
-			std::cout << "Zooming in" << std::endl;
-
 			CameraData *cd = this->GetCameraData();
 			cd->targetDistance -= amount;
 			this->ClampZoom();
 		}
 
 		void TopCamera::ZoomOut(float amount) {
-			std::cout << "Zooming out" << std::endl;
-
 			CameraData *cd = this->GetCameraData();
 			cd->targetDistance += amount;
 			this->ClampZoom();
@@ -258,6 +257,10 @@ namespace ummo {
 			Camera* c = this->GetCamera();
 			CameraData* cd = this->GetCameraData();
 
+			c->target = *this->liveTarget;
+
+			std::cout << "Camera target=> x: " << c->target.x << "; y: " << c->target.y << "; z: " << c->target.z << std::endl;
+
 			c->position.x = -sinf(cd->angle.x) * cd->targetDistance * cosf(cd->angle.y) + c->target.x;
 			c->position.y = -sinf(cd->angle.y) * cd->targetDistance + c->target.y;
 			c->position.z = -cosf(cd->angle.x) * cd->targetDistance * cosf(cd->angle.y) + c->target.z;
@@ -265,6 +268,10 @@ namespace ummo {
 			// std::cout << "Camera position:\n\tx: " << c->position.x << "\n\ty: " << c->position.y << "\n\tz: " << c->position.z << std::endl;
 			// std::cout << "Camera angle:\n\tx: " << cd->angle.x << "\n\ty: " << cd->angle.y << std::endl;
 		
+		}
+
+		void TopCamera::SetLiveTarget(Vector3& target) {
+			this->liveTarget = &target;
 		}
 
 	}

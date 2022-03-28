@@ -5,6 +5,8 @@
 #include "Game.h"
 #include "src/client/ui/camera/TopCamera.h"
 #include "src/client/inputhandler/InputHandler.h"
+#include "src/common/characters/Character.h"
+#include "src/common/characters/player/Player.h"
 
 
 int main(void)
@@ -18,11 +20,17 @@ int main(void)
 	ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
 
 	EnableCursor();
-	Model lance = LoadModel("./src/client/resources/models/Lance.glb");
+	// Model lance = LoadModel("./src/client/resources/models/Lance.glb");
+	ummo::common::characters::Character* lance = new ummo::common::characters::Player(1);
 	std::cout << "Get working directory" << std::endl;
 	std::cout << GetWorkingDirectory() << std::endl;
+
+	Vector3& lancePos = lance->GetLivePosition();
+	cam->SetLiveTarget(lancePos);
+	
 	while (!WindowShouldClose())
 	{
+		lance->Move((Vector3) { 0.0f, 0.0f, -1.0f });
 		ih->HandleInput();
 		cam->Update();
 
@@ -31,7 +39,7 @@ int main(void)
 
 			BeginMode3D(*camera);
 				// DrawModelEx(lance, (Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 1.0f, 0.0f, 0.0f }, 0.0f, (Vector3) { 2.0f, 2.0f, 2.0f }, WHITE);
-				DrawModel(lance, (Vector3) { 0.0f, 0.0f, 0.0f }, 1, WHITE);
+				DrawModel(lance->GetModel(), lancePos, 1, WHITE);
 
 				DrawLine3D((Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 100.0f, 0.0f, 0.0f }, RED);
 				DrawLine3D((Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 0.0f, 100.0f, 0.0f }, GREEN);
@@ -45,7 +53,6 @@ int main(void)
 		EndDrawing();
 	}
 
-	UnloadModel(lance);
 	CloseWindow();
 
 	return 0;
