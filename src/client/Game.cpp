@@ -41,9 +41,9 @@ int main(void)
 				// DrawModelEx(lance, (Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 1.0f, 0.0f, 0.0f }, 0.0f, (Vector3) { 2.0f, 2.0f, 2.0f }, WHITE);
 				DrawModel(lance->GetModel(), lancePos, 1, WHITE);
 
-				DrawLine3D((Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 100.0f, 0.0f, 0.0f }, RED);
-				DrawLine3D((Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 0.0f, 100.0f, 0.0f }, GREEN);
-				DrawLine3D((Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 0.0f, 0.0f, 100.0f }, BLUE);
+				DrawLine3D((Vector3) { lancePos.x, lancePos.y, lancePos.z }, (Vector3) { lancePos.x + 100.0f, lancePos.y, lancePos.z }, RED);
+				DrawLine3D((Vector3) { lancePos.x, lancePos.y, lancePos.z }, (Vector3) { lancePos.x, lancePos.y + 100.0f, lancePos.z }, GREEN);
+				DrawLine3D((Vector3) { lancePos.x, lancePos.y, lancePos.z }, (Vector3) { lancePos.x, lancePos.y, lancePos.z + 100.0f }, BLUE);
 				
 				DrawGrid(10, 1.0f);
 			EndMode3D();

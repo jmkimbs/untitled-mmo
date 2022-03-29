@@ -1,0 +1,11 @@
+
+							// config file says
+							// this is the ui dependency id (int), graphic image, pixel point to show the btn, these are the dimensions of the btn, button purpose, button purpose id, keys combo
+							// e.g. ui_id:0		required ui ids=-1 (=0=>no requirement) that must be toggled "on" for this to show, graphic image, at 10,10, show a 15x20 btn, it is the open inventory button, button purpose id is char id, alt e is the keys needed to be pressed to activate this button
+							// 		ui_id:2		required ui ids=-1, graphic image, at absolute(10,40), show a 15x20 btn, is it the open guild button, button purpose id is guild id,alt g
+							//		ui_id:1		required ui ids=-1, graphic image, at absolute(10,70), show a 15x20btn, it is the open class skill pane, button purpose id is char id, alt s
+							//		ui_id:3		required ui ids=-1, graphic image, at absolute(60,12.5), show a 20x15 btn, it is the use class skill button, button purpose id is class skill id, f1
+							//		ui_id:4		required ui ids=-1, graphic image, at absolute(90,12.5), show a 20x15 btn, it is the life skill button, button purpose id is the life skill id, f2
+							//		ui_id:5		required ui ids=1, graphic image, at pos_name((10,15) pos adjust to go from this to next item in pos_name list) default 40,40, show this image, no_purpose, no_purpose_id, no_activation
+							//		ui_id:6		required ui ids=1, graphic image, at pos_name((0,10) pos adjust to go from this to next item in pos_name list) default 40,40, show a 40x30 btn, (0,20), it is the use class skill button, button purpose id is class skill id (variable or no?) (i think not variable, client specifies exact skills and has this entry for EVERY skill in the game - if your class doesn't have the skill, when you check with the server you will simply get told no access to skill and won't show it ;; this allows for skill lists and also adjacent skills to show skill trees), alt f1
+							//		ui_id:7		required ui ids=1, graphic image, at pos_name(pos adjust by (10,0) from ui id 6) default 40,40, show a 40x30 btn, (0,20), it is the use class skill button, button purpose id is class skill id, alt f2
