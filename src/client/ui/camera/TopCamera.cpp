@@ -1,4 +1,5 @@
 #include <iostream>
+#include <functional>
 #include <map>
 #include <math.h>
 #include <cmath>
@@ -261,7 +262,7 @@ namespace ummo {
 
 			c->target = *this->liveTarget;
 
-			std::cout << "Camera target=> x: " << c->target.x << "; y: " << c->target.y << "; z: " << c->target.z << std::endl;
+			// std::cout << "Camera target=> x: " << c->target.x << "; y: " << c->target.y << "; z: " << c->target.z << std::endl;
 
 			c->position.x = -sinf(cd->angle.x) * cd->targetDistance * cosf(cd->angle.y) + c->target.x;
 			c->position.y = -sinf(cd->angle.y) * cd->targetDistance + c->target.y;

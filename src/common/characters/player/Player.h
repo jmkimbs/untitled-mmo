@@ -17,7 +17,7 @@ namespace ummo {
 
 				public:
 					Player(int);
-					~Player();
+					~Player() = default;
 
 
 			};

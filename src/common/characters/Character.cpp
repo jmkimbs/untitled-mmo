@@ -1,3 +1,4 @@
+#include <iostream>
 #include "raylib.h"
 
 #include "Character.h"
@@ -10,7 +11,7 @@ namespace ummo {
 			}
 
 			Character::~Character() {
-				UnloadModel(this->GetModel());
+				// UnloadModel(this->GetModel());
 			}
 
 			void Character::SetModel(Model model) {
@@ -34,8 +35,13 @@ namespace ummo {
 			}
 
 			void Character::Move(Vector3 positionDelta) {
+				std::cout << "MOVING" << std::endl;
 				Vector3 position = this->GetPosition();
 				this->SetPosition((Vector3) { position.x + positionDelta.x, position.y + positionDelta.y, position.z + positionDelta.z });
+				
+				Vector3 newPosition = this->GetPosition();
+				std::cout << "New position=> x: " << newPosition.x << "; y: " << newPosition.y << "; z: " << newPosition.z << std::endl;
+			
 			}
 
 			void Character::SetPosition(Vector3 position) {

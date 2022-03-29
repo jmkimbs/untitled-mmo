@@ -6,9 +6,9 @@ LIBS=raylib
 
 all: bin/client/Game
 
-bin/client/Game: build/client/Game.o build/client/ui/camera/TopCamera.o build/client/inputhandler/InputHandler.o build/common/characters/Character.o build/common/characters/player/Player.o $(LIB_PATHS) | bin copyclientlibs
+bin/client/Game: build/client/Game.o build/client/ui/camera/TopCamera.o build/client/inputhandler/InputHandler.o build/common/characters/Character.o build/common/characters/player/Player.o build/client/characters/player/ClientPlayer.o build/client/characters/player/PlayerControls.o $(LIB_PATHS) | bin copyclientlibs
 	@echo "-- Building the game binary... --"
-	g++ -std=c++2a -o bin/client/Game build/client/Game.o build/client/ui/camera/TopCamera.o build/client/inputhandler/InputHandler.o build/common/characters/Character.o build/common/characters/player/Player.o -L src/lib/raylib-4.0.0_linux_amd64/lib -lraylib -L. -Wl,-rpath,"\$$ORIGIN/lib"
+	g++ -std=c++2a -o bin/client/Game build/client/Game.o build/client/ui/camera/TopCamera.o build/client/inputhandler/InputHandler.o build/common/characters/Character.o build/common/characters/player/Player.o build/client/characters/player/ClientPlayer.o build/client/characters/player/PlayerControls.o -L src/lib/raylib-4.0.0_linux_amd64/lib -lraylib -L. -Wl,-rpath,"\$$ORIGIN/lib"
 	@echo ""
 
 bin:
@@ -18,6 +18,8 @@ bin:
 	mkdir bin/client/inputhandler
 	mkdir bin/client/ui
 	mkdir bin/client/ui/camera
+	mkdir bin/client/characters
+	mkdir bin/client/characters/player
 	mkdir bin/common
 	mkdir bin/common/characters
 	mkdir bin/common/characters/player
@@ -49,6 +51,12 @@ build/common/characters/player/Player.o: src/common/characters/player/Player.cpp
 	@echo "-- Building the player files... --"
 	g++ -std=c++2a $(INCLUDE:%=-I %) -c -o build/common/characters/player/Player.o src/common/characters/player/Player.cpp
 
+build/client/characters/player/ClientPlayer.o: src/client/characters/player/ClientPlayer.cpp src/client/characters/player/ClientPlayer.h | build
+	g++ -std=c++2a $(INCLUDE:%=-I %) -c -o build/client/characters/player/ClientPlayer.o src/client/characters/player/ClientPlayer.cpp
+
+build/client/characters/player/PlayerControls.o: src/client/characters/player/PlayerControls.cpp src/client/characters/player/PlayerControls.h | build
+	g++ -std=c++2a $(INCLUDE:%=-I %) -c -o build/client/characters/player/PlayerControls.o src/client/characters/player/PlayerControls.cpp
+
 build:
 	mkdir build
 	mkdir build/copyclientlibs
@@ -56,6 +64,8 @@ build:
 	mkdir build/client/inputhandler
 	mkdir build/client/ui
 	mkdir build/client/ui/camera
+	mkdir build/client/characters
+	mkdir build/client/characters/player
 	mkdir build/common
 	mkdir build/common/characters
 	mkdir build/common/characters/player

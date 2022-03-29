@@ -6,12 +6,13 @@ namespace ummo {
 	namespace client {
 		namespace characters {
 
-			class ClientPlayer : ummo::common::characters::Player {
+			class ClientPlayer : public ummo::common::characters::Player {
 				private:
 
 				public:
 					ClientPlayer(int);
 					void RegisterClientInputHandlers();
+					~ClientPlayer() = default;
 
 			};
 		}

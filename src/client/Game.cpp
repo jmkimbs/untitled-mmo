@@ -6,7 +6,8 @@
 #include "src/client/ui/camera/TopCamera.h"
 #include "src/client/inputhandler/InputHandler.h"
 #include "src/common/characters/Character.h"
-#include "src/common/characters/player/Player.h"
+#include "src/client/characters/player/ClientPlayer.h"
+#include "src/client/characters/player/PlayerControls.h"
 
 
 int main(void)
@@ -21,16 +22,18 @@ int main(void)
 
 	EnableCursor();
 	// Model lance = LoadModel("./src/client/resources/models/Lance.glb");
-	ummo::common::characters::Character* lance = new ummo::common::characters::Player(1);
+	ummo::client::characters::ClientPlayer* lance = new ummo::client::characters::ClientPlayer(1);
 	std::cout << "Get working directory" << std::endl;
 	std::cout << GetWorkingDirectory() << std::endl;
 
 	Vector3& lancePos = lance->GetLivePosition();
+	ummo::client::characters::PlayerControls::RegisterInputHandlers(*lance);
+
 	cam->SetLiveTarget(lancePos);
 
 	while (!WindowShouldClose())
 	{
-		lance->Move((Vector3) { 0.0f, 0.0f, -1.0f });
+		// lance->Move((Vector3) { 0.0f, 0.0f, -1.0f });
 		ih->HandleInput();
 		cam->Update();
 
@@ -39,7 +42,8 @@ int main(void)
 
 			BeginMode3D(*camera);
 				// DrawModelEx(lance, (Vector3) { 0.0f, 0.0f, 0.0f }, (Vector3) { 1.0f, 0.0f, 0.0f }, 0.0f, (Vector3) { 2.0f, 2.0f, 2.0f }, WHITE);
-				DrawModel(lance->GetModel(), lancePos, 1, WHITE);
+				// DrawModel(lance->GetModel(), lancePos, 1, WHITE);
+				DrawModelEx(lance->GetModel(), lancePos, (Vector3) { 0.0f, 1.0f, 0.0f }, lance->GetRotation(), (Vector3) { 1.0f, 1.0f, 1.0f }, WHITE);
 
 				DrawLine3D((Vector3) { lancePos.x, lancePos.y, lancePos.z }, (Vector3) { lancePos.x + 100.0f, lancePos.y, lancePos.z }, RED);
 				DrawLine3D((Vector3) { lancePos.x, lancePos.y, lancePos.z }, (Vector3) { lancePos.x, lancePos.y + 100.0f, lancePos.z }, GREEN);
