@@ -11,7 +11,7 @@ namespace ummo {
 
 				public:
 					ClientPlayer(int);
-					void RegisterClientInputHandlers();
+					// void RegisterClientInputHandlers();
 					~ClientPlayer() = default;
 
 			};

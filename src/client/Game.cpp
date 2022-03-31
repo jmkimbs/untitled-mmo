@@ -27,15 +27,20 @@ int main(void)
 	std::cout << GetWorkingDirectory() << std::endl;
 
 	Vector3& lancePos = lance->GetLivePosition();
-	ummo::client::characters::PlayerControls::RegisterInputHandlers(*lance);
-
+	ummo::client::characters::PlayerControls::RegisterInputHandlers(*lance, *camera);
+	Model plane = LoadModelFromMesh(GenMeshPlane(200, 200, 50, 50));
+	lance->SetMap(plane);
+	
 	cam->SetLiveTarget(lancePos);
 
 	while (!WindowShouldClose())
 	{
+
+		float timeDelta = GetFrameTime();
 		// lance->Move((Vector3) { 0.0f, 0.0f, -1.0f });
 		ih->HandleInput();
 		cam->Update();
+		lance->Update(timeDelta);
 
 		BeginDrawing();
 			ClearBackground(RAYWHITE);
@@ -45,11 +50,20 @@ int main(void)
 				// DrawModel(lance->GetModel(), lancePos, 1, WHITE);
 				DrawModelEx(lance->GetModel(), lancePos, (Vector3) { 0.0f, 1.0f, 0.0f }, lance->GetRotation(), (Vector3) { 1.0f, 1.0f, 1.0f }, WHITE);
 
-				DrawLine3D((Vector3) { lancePos.x, lancePos.y, lancePos.z }, (Vector3) { lancePos.x + 100.0f, lancePos.y, lancePos.z }, RED);
-				DrawLine3D((Vector3) { lancePos.x, lancePos.y, lancePos.z }, (Vector3) { lancePos.x, lancePos.y + 100.0f, lancePos.z }, GREEN);
-				DrawLine3D((Vector3) { lancePos.x, lancePos.y, lancePos.z }, (Vector3) { lancePos.x, lancePos.y, lancePos.z + 100.0f }, BLUE);
+				// plane = LoadModelFromMesh(GenMeshPlane(100, 100, 50, 50));
+				// lance->SetMap(plane);
+				DrawModel(plane, (Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, WHITE);
+				// DrawModelWires(plane, lancePos, 1.0f, BLUE);
+
+				// DrawLine3D((Vector3) { lancePos.x, lancePos.y, lancePos.z }, (Vector3) { lancePos.x + 100.0f, lancePos.y, lancePos.z }, RED);
+				// DrawLine3D((Vector3) { lancePos.x, lancePos.y, lancePos.z }, (Vector3) { lancePos.x, lancePos.y + 100.0f, lancePos.z }, GREEN);
+				// DrawLine3D((Vector3) { lancePos.x, lancePos.y, lancePos.z }, (Vector3) { lancePos.x, lancePos.y, lancePos.z + 100.0f }, BLUE);
 				
-				DrawGrid(10, 1.0f);
+				DrawLine3D((Vector3) { 0.0f, 1.0f, 0.0f }, (Vector3) { 1000.0f, 1.0f, 0.0f }, RED);
+				DrawLine3D((Vector3) { 0.0f, 1.0f, 0.0f }, (Vector3) { 0.0f, 1000.0f, 0.0f }, GREEN);
+				DrawLine3D((Vector3) { 0.0f, 1.0f, 0.0f }, (Vector3) { 0.0f, 1.0f, 1000.0f }, BLUE);
+				
+				DrawGrid(100, 1.0f);
 			EndMode3D();
 
 			DrawText("Welcome to the beginnings of the Untitled MMO", 400, 40, 20, LIGHTGRAY);
@@ -57,6 +71,7 @@ int main(void)
 		EndDrawing();
 	}
 
+	UnloadModel(plane);
 	CloseWindow();
 
 	return 0;

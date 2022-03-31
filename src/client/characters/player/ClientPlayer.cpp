@@ -10,11 +10,11 @@ namespace ummo {
 
 			}
 
-			void ClientPlayer::RegisterClientInputHandlers() {
+			// void ClientPlayer::RegisterClientInputHandlers() {
 
-				ummo::client::characters::PlayerControls::RegisterInputHandlers(*this);
+			// 	ummo::client::characters::PlayerControls::RegisterInputHandlers(*this);
 
-			}
+			// }
 
 		}
 	}

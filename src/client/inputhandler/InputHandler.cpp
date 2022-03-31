@@ -19,6 +19,7 @@ namespace ummo {
 			this->ActionKeydownHandlers();
 			this->ActionMouseScrollHandlers();
 			this->ActionMouseMoveHandlers();
+			this->ActionMouseClickHandlers();
 		}
 
 		void InputHandler::RegisterKeypressHandler(std::function<void(std::map<KeyboardKey, bool>)> handler) {
@@ -114,5 +115,25 @@ namespace ummo {
 			}
 		}
 
+		void InputHandler::RegisterMouseClickHandler(std::function<void(Vector2)> handler) {
+			this->mouseClickHandlers.push_back(handler);
+		}
+
+		std::vector<std::function<void(Vector2)>> InputHandler::GetMouseClickHandlers() {
+			return this->mouseClickHandlers;
+		}
+
+		void InputHandler::ActionMouseClickHandlers() {
+			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+				std::cout << "Mouse button pressed!" << std::endl;
+				std::vector<std::function<void(Vector2)>> mouseClickHandlers = this->GetMouseClickHandlers();
+				Vector2 mousePosition = GetMousePosition();
+
+				for (auto handler : mouseClickHandlers) {
+					handler(mousePosition);
+				}
+			}
+			
+		}
 	}
 }
