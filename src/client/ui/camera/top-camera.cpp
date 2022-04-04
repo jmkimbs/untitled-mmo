@@ -5,8 +5,8 @@
 #include <cmath>
 #include "raylib.h"
 
-#include "TopCamera.h"
-#include "src/client/inputhandler/InputHandler.h"
+#include "top-camera.hpp"
+#include "input-handler.hpp"
 
 namespace ummo {
 	namespace camera {

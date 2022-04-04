@@ -4,7 +4,7 @@
 
 #include "raylib.h"
 
-#include "src/common/characters/Character.h"
+#include "character.hpp"
 
 // Camera mouse movement sensitivity
 #define CAMERA_MOUSE_MOVE_SENSITIVITY                   0.003f

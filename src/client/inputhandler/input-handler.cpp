@@ -4,7 +4,7 @@
 #include <iostream>
 #include "raylib.h"
 
-#include "InputHandler.h"
+#include "input-handler.hpp"
 
 namespace ummo {
 	namespace input {

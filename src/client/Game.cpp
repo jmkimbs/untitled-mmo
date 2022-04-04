@@ -3,11 +3,11 @@
 #include "raylib.h"
 
 #include "Game.h"
-#include "src/client/ui/camera/TopCamera.h"
-#include "src/client/inputhandler/InputHandler.h"
-#include "src/common/characters/Character.h"
-#include "src/client/characters/player/ClientPlayer.h"
-#include "src/client/characters/player/PlayerControls.h"
+#include "top-camera.hpp"
+#include "input-handler.hpp"
+#include "character.hpp"
+// #include "client-player.hpp"
+#include "player-controls.hpp"
 
 
 int main(void)
@@ -21,8 +21,7 @@ int main(void)
 	ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
 
 	EnableCursor();
-	// Model lance = LoadModel("./src/client/resources/models/Lance.glb");
-	ummo::client::characters::ClientPlayer* lance = new ummo::client::characters::ClientPlayer(1);
+	ummo::common::characters::Player* lance = new ummo::common::characters::Player(1);
 	std::cout << "Get working directory" << std::endl;
 	std::cout << GetWorkingDirectory() << std::endl;
 

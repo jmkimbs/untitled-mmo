@@ -1,8 +1,8 @@
 
 #include "raylib.h"
 
-#include "Player.h"
-#include "src/common/characters/Character.h"
+#include "player.hpp"
+#include "character.hpp"
 
 namespace ummo {
 	namespace common {

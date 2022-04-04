@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 
-#include "src/common/characters/Character.h"
+#include "character.hpp"
 
 namespace ummo {
 	namespace common {

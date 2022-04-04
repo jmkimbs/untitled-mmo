@@ -2,8 +2,8 @@
 #include <map>
 #include "raylib.h"
 
-#include "src/client/characters/player/ClientPlayer.h"
-#include "src/common/characters/player/Player.h"
+// #include "src/client/characters/player/ClientPlayer.h"
+#include "player.hpp"
 
 namespace ummo {
 	namespace client {

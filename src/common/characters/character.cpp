@@ -2,7 +2,7 @@
 #include <cmath>
 #include "raylib.h"
 
-#include "Character.h"
+#include "character.hpp"
 
 namespace ummo {
 	namespace common {

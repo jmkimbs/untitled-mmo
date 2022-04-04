@@ -6,9 +6,9 @@
 #include <cmath>
 #include "raylib.h"
 
-#include "src/client/characters/player/PlayerControls.h"
-#include "src/common/characters/player/Player.h"
-#include "src/client/inputhandler/InputHandler.h"
+#include "player-controls.hpp"
+#include "player.hpp"
+#include "input-handler.hpp"
 
 namespace ummo {
 	namespace client {
