@@ -5,13 +5,6 @@
 namespace ummo {
 	namespace common {
 		namespace characters {
-
-			enum CharacterType {
-				kPlayer,
-				kFriendlyNPC,
-				kHostileNPC
-			};
-
 			class Character {
 
 				private:

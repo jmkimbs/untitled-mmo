@@ -1,4 +1,5 @@
 #include <iostream>
+#include <filesystem>
 
 #include "raylib.h"
 
@@ -6,12 +7,16 @@
 #include "top-camera.hpp"
 #include "input-handler.hpp"
 #include "character.hpp"
-// #include "client-player.hpp"
 #include "player-controls.hpp"
+#include "character-utils.hpp"
 
 
-int main(void)
-{
+int main(int argc, char* argv[]) {
+
+	std::filesystem::path binPath = std::filesystem::path(argv[0]);
+	std::filesystem::path resourcesPath = std::filesystem::path(binPath.parent_path().string() + "/resources/");
+	ummo::common::characters::CharacterUtils::SetResourcesPath(resourcesPath);
+
 	InitWindow(1280, 720, "Untitled MMO");
 	SetTargetFPS(60);
 
@@ -19,11 +24,7 @@ int main(void)
 	Camera* camera = cam->GetCamera();
 
 	ummo::input::InputHandler* ih = ummo::input::InputHandler::GetInstance();
-
-	EnableCursor();
 	ummo::common::characters::Player* lance = new ummo::common::characters::Player(1);
-	std::cout << "Get working directory" << std::endl;
-	std::cout << GetWorkingDirectory() << std::endl;
 
 	Vector3& lancePos = lance->GetLivePosition();
 	ummo::client::characters::PlayerControls::RegisterInputHandlers(*lance, *camera);

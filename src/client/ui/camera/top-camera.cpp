@@ -13,6 +13,7 @@ namespace ummo {
 
 
 		TopCamera::TopCamera() {
+			EnableCursor();
 			this->camera = new Camera3D;
 			this->camera->position = (Vector3){ 10.0f, 10.0f, 10.0f };
 			this->camera->target = (Vector3){ 0.0f, 0.0f, 0.0f };
